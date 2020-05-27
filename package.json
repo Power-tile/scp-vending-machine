@@ -1,0 +1,17 @@
+{
+  "name": "vendingmachine",
+  "version": "1.0.0",
+  "description": "VendingMachine @ SCP @ MSA",
+  "main": "./src/resources/static/js/script.js",
+  "repository": "https://github.com/Power-tile/scp-vending-machine.git",
+  "author": "Power_tile <hejizheng2004@163.com>",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.5.1",
+    "muse-ui": "^3.0.2",
+    "vue": "^2.6.11"
+  },
+  "scripts": {
+    "setup": "yarn install & rmdir /s /q .\\src\\main\\resources\\static\\node_modules & mkdir .\\src\\main\\resources\\static\\node_modules & xcopy .\\node_modules .\\src\\main\\resources\\static\\node_modules /s /e /y /q"
+  }
+}
