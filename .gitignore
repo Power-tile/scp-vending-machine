@@ -32,3 +32,6 @@ build/
 
 ### Yarn ###
 node_modules/
+
+### Application Property Document ###
+./src/main/resources/application-dev.properties
