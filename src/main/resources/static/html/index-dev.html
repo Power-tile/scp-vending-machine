@@ -3,42 +3,41 @@
     <head>
         <title>Dev @ Vending Machine @ SCP</title>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
-        <link rel="stylesheet" type="text/css" href="../node_modules/muse-ui/dist/muse-ui.css">
-        <script type="text/javascript" src="../node_modules/muse-ui/dist/muse-ui.js"></script>
+        <script type="text/javascript" src="../node_modules/view-design/dist/iview.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../node_modules/view-design/dist/styles/iview.css">
+        <script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     </head>
     <body>
-        <div id="app">
-            <div class="step-container">
-                <mu-stepper v-bind:active-step="activeStep">
-                    <mu-step>
-                        <mu-step-label>
-                            Choose Your Products
-                        </mu-step-label>
-                    </mu-step>
-                    <mu-step>
-                        <mu-step-label>
-                            Confirm Your Products
-                        </mu-step-label>
-                    </mu-step>
-                    <mu-step>
-                        <mu-step-label>
-                            Make Payment
-                        </mu-step-label>
-                    </mu-step>
-                </mu-stepper>
-                <div v-if="!finished">
-                    <mu-button flat class="demo-step-button" v-bind:disabled="activeStep === 0" v-on:click="handlePrev"> Previous </mu-button>
-                    <mu-button class="demo-step-button" color="primary" v-on:click="handleNext">
-                        {{ activeStep === 2 ? 'Finish' : 'Next'}}
-                    </mu-button>
-                </div>
-                <div v-if="finished">
-                    Finished!
-                </div>
+        <div id="app" class="p-4" style="font-family: Kreon">
+            <Steps v-bind:current="step" class="mb-2">
+                <Step title="Select"></Step>
+                <Step title="Confirm"></Step>
+                <Step title="Pay"></Step>
+            </Steps>
+
+            <div id="select-content">
+
             </div>
+            <div id="confirm-content">
+
+            </div>
+            <div id="pay-content">
+
+            </div>
+
+            <div id="nav-button-wrapper" class="text-center" v-if="step < 3">
+                <i-button type="primary" v-bind:disabled="step === 0" v-on:click="step--">Previous</i-button>
+                <i-button type="primary" v-on:click="step++">Next</i-button>
+            </div>
+            <Alert type="success" v-else class="text-center" show-icon>
+                Success!
+                <Icon slot="icon" />
+            </Alert>
         </div>
         <script src="../js/script.js"></script>
     </body>
