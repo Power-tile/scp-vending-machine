@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
     @RequestMapping("/dev")
     public String devPage(Model m) {
-        return "html/index-dev.html";
+        return "/html/index-dev.html";
     }
 
     @RequestMapping("/")
     public String mainPage(Model m) {
-        return "html/index.html";
+        return "/html/index.html";
     }
 }

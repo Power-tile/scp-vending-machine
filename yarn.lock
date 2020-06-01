@@ -12,10 +12,10 @@ batch-processor@1.0.0:
   resolved "https://registry.npm.taobao.org/batch-processor/download/batch-processor-1.0.0.tgz#75c95c32b748e0850d10c2b168f6bdbe9891ace8"
   integrity sha1-dclcMrdI4IUNEMKxaPa9vpiRrOg=
 
-bootstrap@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.npm.taobao.org/bootstrap/download/bootstrap-4.5.0.tgz#97d9dbcb5a8972f8722c9962483543b907d9b9ec"
-  integrity sha1-l9nby1qJcvhyLJliSDVDuQfZuew=
+blueimp-md5@^2.16.0:
+  version "2.16.0"
+  resolved "https://registry.npm.taobao.org/blueimp-md5/download/blueimp-md5-2.16.0.tgz?cache=0&sync_timestamp=1589419644333&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fblueimp-md5%2Fdownload%2Fblueimp-md5-2.16.0.tgz#9018bb805e4ee05512e0e8cbdb9305eeecbdc87c"
+  integrity sha1-kBi7gF5O4FUS4OjL25MF7uy9yHw=
 
 deepmerge@^2.2.1:
   version "2.2.1"

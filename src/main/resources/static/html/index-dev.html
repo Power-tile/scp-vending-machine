@@ -9,12 +9,10 @@
         <script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
         <script type="text/javascript" src="../node_modules/view-design/dist/iview.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../node_modules/view-design/dist/styles/iview.css">
-        <script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     </head>
     <body>
         <div id="app" class="p-4" style="font-family: Kreon">
-            <Steps v-bind:current="step" class="mb-2">
+            <Steps v-bind:current="step" style="margin-bottom: 5px">
                 <Step title="Select"></Step>
                 <Step title="Confirm"></Step>
                 <Step title="Pay"></Step>
@@ -30,11 +28,11 @@
 
             </div>
 
-            <div id="nav-button-wrapper" class="text-center" v-if="step < 3">
+            <div id="nav-button-wrapper" style="text-align: center" v-if="step < 3">
                 <i-button type="primary" v-bind:disabled="step === 0" v-on:click="step--">Previous</i-button>
                 <i-button type="primary" v-on:click="step++">Next</i-button>
             </div>
-            <Alert type="success" v-else class="text-center" show-icon>
+            <Alert type="success" v-else style="text-align: center" show-icon>
                 Success!
                 <Icon slot="icon" />
             </Alert>
