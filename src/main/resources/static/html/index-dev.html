@@ -14,7 +14,7 @@
     <body>
         <div id="app">
             <Layout>
-                <Header style="position: fixed; width: 100%; z-index: 1; background-color: rgb(245, 247, 249);" ref="statusBar">
+                <Header style="position: fixed; width: 100%; z-index: 1; background-color: rgb(245, 247, 249);" ref="headerBar">
                     <div style="height: 8px; background-color: rgb(245, 247, 249)"></div>
                     <Steps v-bind:current="step" style="margin-bottom: 10px; padding-right: 11px;">
                         <Step title="Select" class="gray-back"></Step>
@@ -22,7 +22,7 @@
                         <Step title="Pay" class="gray-back"></Step>
                     </Steps>
                 </Header>
-                <Content :style="'padding-top: ' + statusBarHeight + 'px'">
+                <Content v-bind:style="'padding-top: ' + headerBarHeight + 'px; padding-bottom: ' + footerBarHeight + 'px'">
                     <div id="select-content" v-if="step === 0">
                         <ul>
                             <li v-for="(pair, index) in viewProducts" v-bind:key="index" style="padding-bottom: 2px">
@@ -69,7 +69,7 @@
                         <Icon slot="icon" />
                     </Alert>
                 </Content>
-                <Footer style="position: fixed; width: 100%; z-index: 1; background-color: rgb(245, 247, 249); bottom: 0">
+                <Footer style="position: fixed; width: 100%; z-index: 1; background-color: rgb(245, 247, 249); bottom: 0" ref="footerBar">
                     <div style="height: 4px; background-color: rgb(245, 247, 249)"></div>
                     <Row>
                         <i-col span="8" style="font-size: large; color: rgb(255, 145, 0)">Total Price: ¥{{ totalPrice }}</i-col>
