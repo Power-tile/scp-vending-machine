@@ -26,6 +26,7 @@ let app = new Vue({
         selectCount: [],
         addWarning: [],
         minusWarning: [],
+        statusBarHeight: 0,
     },
     mounted() {
         let self = this;
@@ -36,6 +37,7 @@ let app = new Vue({
             self.addWarning.push(false);
             self.minusWarning.push(false);
         }
+        self.statusBarHeight = this.$refs.statusBar.offsetHeight;
     },
     computed: {
         viewProducts: function() {

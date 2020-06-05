@@ -14,13 +14,15 @@
     <body>
         <div id="app">
             <Layout>
-                <Content>
-                    <Steps v-bind:current="step" style="margin-bottom: 10px">
-                        <Step title="Select"></Step>
-                        <Step title="Confirm"></Step>
-                        <Step title="Pay"></Step>
+                <Header style="position: fixed; width: 100%; z-index: 1; background-color: rgb(245, 247, 249);" ref="statusBar">
+                    <div style="height: 8px; background-color: rgb(245, 247, 249)"></div>
+                    <Steps v-bind:current="step" style="margin-bottom: 10px; padding-right: 11px;">
+                        <Step title="Select" class="gray-back"></Step>
+                        <Step title="Confirm" class="gray-back"></Step>
+                        <Step title="Pay" class="gray-back"></Step>
                     </Steps>
-
+                </Header>
+                <Content :style="'padding-top: ' + statusBarHeight + 'px'">
                     <div id="select-content" v-if="step === 0">
                         <ul>
                             <li v-for="(pair, index) in viewProducts" v-bind:key="index" style="padding-bottom: 2px">
@@ -67,14 +69,17 @@
                         <Icon slot="icon" />
                     </Alert>
                 </Content>
-                <Footer class="layout-footer-center">
+                <Footer style="position: fixed; width: 100%; z-index: 1; background-color: rgb(245, 247, 249); bottom: 0">
+                    <div style="height: 4px; background-color: rgb(245, 247, 249)"></div>
                     <Row>
-                        <i-col span="14" style="font-size: large; color: rgb(255, 145, 0)">Total Price: ¥{{ totalPrice }}</i-col>
-                        <i-col span="10" v-if="step < 3" style="text-align: right;">
+                        <i-col span="8" style="font-size: large; color: rgb(255, 145, 0)">Total Price: ¥{{ totalPrice }}</i-col>
+                        <i-col span="15" v-if="step < 3" style="text-align: right;">
                             <i-button type="primary" v-bind:disabled="step === 0" v-on:click="step--">Previous</i-button>
                             <i-button type="primary" v-on:click="step++">Next</i-button>
                         </i-col>
+                        <i-col span="1"></i-col>
                     </Row>
+                    <div style="height: 6px; background-color: rgb(245, 247, 249)"></div>
                 </Footer>
             </Layout>
         </div>

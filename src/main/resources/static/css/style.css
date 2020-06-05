@@ -1,6 +1,6 @@
 #app {
     font-family: Kreon;
-    padding: 8px;
+    margin: 0px 8px;
 }
 
 .product-img {
@@ -19,4 +19,8 @@
 
 .red-warning {
     animation: red-alert 1s infinite;
+}
+
+.gray-back {
+    background-color: rgb(245, 247, 249)
 }
