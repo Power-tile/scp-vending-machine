@@ -9,34 +9,80 @@
         <script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
         <script type="text/javascript" src="../node_modules/view-design/dist/iview.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../node_modules/view-design/dist/styles/iview.css">
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
     </head>
     <body>
-        <div id="app" class="p-4" style="font-family: Kreon">
-            <Steps v-bind:current="step" style="margin-bottom: 5px">
-                <Step title="Select"></Step>
-                <Step title="Confirm"></Step>
-                <Step title="Pay"></Step>
-            </Steps>
+        <div id="app">
+            <Layout>
+                <Header style="position: fixed; width: 100%; z-index: 1; background-color: rgb(245, 247, 249);" ref="headerBar">
+                    <div style="height: 8px; background-color: rgb(245, 247, 249)"></div>
+                    <Steps v-bind:current="step" style="margin-bottom: 10px; padding-right: 11px;">
+                        <Step title="Select" class="gray-back"></Step>
+                        <Step title="Confirm" class="gray-back"></Step>
+                        <Step title="Pay" class="gray-back"></Step>
+                    </Steps>
+                </Header>
+                <Content v-bind:style="'padding-top: ' + headerBarHeight + 'px; padding-bottom: ' + footerBarHeight + 'px'">
+                    <div id="select-content" v-if="step === 0">
+                        <ul>
+                            <li v-for="(pair, index) in viewProducts" v-bind:key="index" style="padding-bottom: 2px">
+                                <Card style="height: 125px; width: 100%">
+                                    <Row type="flex" justify="center" :gutter="16">
+                                        <i-col span="8">
+                                            <img v-bind:src="pair[0].imageUrl" class="product-img" style="height: 93px;">
+                                        </i-col>
+                                        <i-col span="16">
+                                            <div style="text-align: left;">
+                                                <div style="font-size: large;">
+                                                    <strong>{{ pair[0].name }}</strong>
+                                                </div>
+                                                <strong>Price:</strong> ¥{{ pair[0].price }}/item <br>
+                                                <span v-bind:class="addWarning[index] ? 'red-warning' : ''">
+                                                    <strong>Remaining:</strong> {{ pair[1].length }}
+                                                </span>
+                                            </div>
+                                            <div style="text-align: right">
+                                                <i-button type="primary" icon="ios-remove" shape="circle"
+                                                    @click="handleMinusAction" :name="index">
+                                                </i-button>
+                                                <span style="font-size: medium;" v-bind:class="minusWarning[index] ? 'red-warning' : ''">
+                                                    {{ selectCount[index] }}
+                                                </span>
+                                                <i-button type="primary" icon="ios-add" shape="circle"
+                                                    @click="handleAddAction" :name="index">
+                                                </i-button>
+                                            </div>
+                                        </i-col>
+                                    </Row>
+                                </Card>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="confirm-content" v-if="step === 1">
 
-            <div id="select-content">
+                    </div>
+                    <div id="pay-content" v-if="step === 2">
 
-            </div>
-            <div id="confirm-content">
-
-            </div>
-            <div id="pay-content">
-
-            </div>
-
-            <div id="nav-button-wrapper" style="text-align: center" v-if="step < 3">
-                <i-button type="primary" v-bind:disabled="step === 0" v-on:click="step--">Previous</i-button>
-                <i-button type="primary" v-on:click="step++">Next</i-button>
-            </div>
-            <Alert type="success" v-else style="text-align: center" show-icon>
-                Success!
-                <Icon slot="icon" />
-            </Alert>
+                    </div>
+                    <Alert type="success" v-if="step === 3" style="text-align: center" show-icon>
+                        Success!
+                        <Icon slot="icon" />
+                    </Alert>
+                </Content>
+                <Footer style="position: fixed; width: 100%; z-index: 1; background-color: rgb(245, 247, 249); bottom: 0" ref="footerBar">
+                    <div style="height: 4px; background-color: rgb(245, 247, 249)"></div>
+                    <Row>
+                        <i-col span="8" style="font-size: large; color: rgb(255, 145, 0)">Total Price: ¥{{ totalPrice }}</i-col>
+                        <i-col span="15" v-if="step < 3" style="text-align: right;">
+                            <i-button type="primary" v-bind:disabled="step === 0" v-on:click="step--">Previous</i-button>
+                            <i-button type="primary" v-on:click="step++">Next</i-button>
+                        </i-col>
+                        <i-col span="1"></i-col>
+                    </Row>
+                    <div style="height: 6px; background-color: rgb(245, 247, 249)"></div>
+                </Footer>
+            </Layout>
         </div>
-        <script src="../js/script.js"></script>
+        <script src="../js/script-dev.js"></script>
     </body>
 </html>
