@@ -12,8 +12,8 @@ import cn.moonshotacademy.scp.vendingmachine.dao.LogDAO;
 import cn.moonshotacademy.scp.vendingmachine.dao.ProductDAO;
 import cn.moonshotacademy.scp.vendingmachine.dao.UserDAO;
 import cn.moonshotacademy.scp.vendingmachine.model.LogDTO;
-import cn.moonshotacademy.scp.vendingmachine.model.ProductDTO;
-import cn.moonshotacademy.scp.vendingmachine.model.UserDTO;
+import cn.moonshotacademy.scp.vendingmachine.service.ProductService;
+import cn.moonshotacademy.scp.vendingmachine.vo.ProductVO;
 
 @Controller
 public class APIController {
@@ -26,6 +26,9 @@ public class APIController {
     @Autowired
     UserDAO userDAO;
 
+    @Autowired
+    ProductService productService;
+
     @RequestMapping("/api/test")
     public @ResponseBody List<LogDTO> apiTest() {
         return logDAO.findAll();
@@ -35,5 +38,15 @@ public class APIController {
     public String apiGetImage(@PathVariable("name") String imgName) {
         System.out.println(imgName);
         return "/img/" + imgName;
+    }
+
+    @RequestMapping("/api/product/available")
+    public @ResponseBody ProductVO getProduct() {
+        return productService.getProducts(0);
+    }
+
+    @RequestMapping("/api/product/test/available")
+    public @ResponseBody ProductVO getTestProduct() {
+        return productService.getProducts(1);
     }
 }
