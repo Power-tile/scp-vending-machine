@@ -3,10 +3,8 @@ package cn.moonshotacademy.scp.vendingmachine.vo;
 import org.springframework.beans.factory.annotation.Value;
 
 import lombok.Data;
-import lombok.Setter;
 
 @Data
-@Setter
 public class RandomVO {
     @Value("Random Box")
     String name;
@@ -20,4 +18,8 @@ public class RandomVO {
 
     Integer test;
 
+    public RandomVO(){
+        this.name="Random Box";
+        this.imageUrl="/api/img/94d4aef90820265861855512ea9f4164.png";
+    }
 }
