@@ -3,10 +3,10 @@ package cn.moonshotacademy.scp.vendingmachine.vo;
 // import org.springframework.beans.factory.annotation.Value;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+// import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
+// @NoArgsConstructor
 public class RandomVO {
     // @Value("Random Box")
     String name;

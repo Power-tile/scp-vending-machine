@@ -18,10 +18,25 @@ public class ProductService {
     ProductDAO productDAO;
 
     public ProductVO getProducts(Integer test) {
-        List<ProductDTO> productDTOList = this.productDAO.findByTest(test);
+        List<ProductDTO> productDTOList = this.productDAO.findByTestAndRandom(test, 0);
         ProductVO productVO = new ProductVO();
         productVO.setProducts(productDTOList);
-        productVO.setRandomBox(new RandomVO());
+        productVO.setRandomBox(this.getRandomVO(test));
         return productVO;
+    }
+
+    private RandomVO getRandomVO(Integer test) {
+        RandomVO ret = new RandomVO();
+        List<ProductDTO> randomDTOList = this.productDAO.findByTestAndRandom(test, 1);
+        Integer[] ids = new Integer[randomDTOList.size()];
+        Double totalPrice = 0.0;
+        for (int i = 0; i < randomDTOList.size(); i++) {
+            ids[i] = randomDTOList.get(i).getId();
+            totalPrice += randomDTOList.get(i).getPrice();
+        }
+        ret.setIds(ids);
+        ret.setPrice(totalPrice / randomDTOList.size());
+        ret.setTest(test);
+        return ret;
     }
 }
