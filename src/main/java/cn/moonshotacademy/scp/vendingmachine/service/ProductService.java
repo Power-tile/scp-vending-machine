@@ -17,7 +17,7 @@ public class ProductService {
     @Autowired
     ProductDAO productDAO;
 
-    public ProductVO getProducts(Integer test){
+    public ProductVO getProducts(Integer test) {
         List<ProductDTO> productDTOList = this.productDAO.findByTest(test);
         ProductVO productVO = new ProductVO();
         productVO.setProducts(productDTOList);
