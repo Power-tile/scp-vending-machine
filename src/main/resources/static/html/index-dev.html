@@ -71,13 +71,13 @@
                 </Content>
                 <Footer style="position: fixed; width: 100%; z-index: 1; background-color: rgb(245, 247, 249); bottom: 0" ref="footerBar">
                     <div style="height: 4px; background-color: rgb(245, 247, 249)"></div>
-                    <Row>
+                    <Row style="padding-left: 5px">
                         <i-col span="8" style="font-size: large; color: rgb(255, 145, 0)">Total Price: ¥{{ totalPrice }}</i-col>
                         <i-col span="15" v-if="step < 3" style="text-align: right;">
                             <i-button type="primary" v-bind:disabled="step === 0" v-on:click="step--">Previous</i-button>
                             <i-button type="primary" v-on:click="step++">Next</i-button>
                         </i-col>
-                        <i-col span="1"></i-col>
+                        <i-col span="0"></i-col>
                     </Row>
                     <div style="height: 6px; background-color: rgb(245, 247, 249)"></div>
                 </Footer>
