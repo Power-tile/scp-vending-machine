@@ -20,30 +20,34 @@ public class ProductService {
     ProductDAO productDAO;
 
     public ProductVO getProducts(Integer test) {
+        return this.getProducts(test, true);
+    }
+
+    public ProductVO getProducts(Integer test, boolean available) {
         ProductVO productVO = new ProductVO();
         List<ProductDTO> productDTOList = this.productDAO.findByTestAndRandom(test, 0);
         int cnt = 0;
         while(cnt<productDTOList.size()){
-            if(!this.available(productDTOList.get(cnt))){
-                productDTOList.remove(cnt);
-            } else {
+            if(this.available(productDTOList.get(cnt))==available){
                 cnt++;
+            } else {
+                productDTOList.remove(cnt);
             }
         }
 
         productVO.setProducts(productDTOList);
-        productVO.setRandomBox(this.getRandomVO(test));
+        productVO.setRandomBox(this.getRandomVO(test,available));
         return productVO;
     }
 
-    private RandomVO getRandomVO(Integer test) {
+    private RandomVO getRandomVO(Integer test, boolean available) {
         RandomVO ret = new RandomVO();
         List<ProductDTO> randomDTOList = this.productDAO.findByTestAndRandom(test, 1);
         ArrayList<Integer> ids = new ArrayList<Integer>();
         Double totalPrice = 0.0;
         for (int i = 0; i < randomDTOList.size(); i++) {
             ProductDTO randomDTO = randomDTOList.get(i);
-            if (this.available(randomDTO)) {
+            if (this.available(randomDTO)==available) {
                 ids.add(randomDTOList.get(i).getId());
                 totalPrice += randomDTOList.get(i).getPrice();
             }

@@ -41,12 +41,22 @@ public class APIController {
     }
 
     @RequestMapping("/api/product/available")
-    public @ResponseBody ProductVO getProduct() {
+    public @ResponseBody ProductVO getAvailableProduct() {
         return productService.getProducts(0);
     }
 
     @RequestMapping("/api/product/test/available")
-    public @ResponseBody ProductVO getTestProduct() {
+    public @ResponseBody ProductVO getAvailableTestProduct() {
         return productService.getProducts(1);
+    }
+
+    @RequestMapping("/api/product/expired")
+    public @ResponseBody ProductVO getExpiredProduct() {
+        return productService.getProducts(0,false);
+    }
+
+    @RequestMapping("/api/product/test/expired")
+    public @ResponseBody ProductVO getExpiredTestProduct() {
+        return productService.getProducts(1,false);
     }
 }
