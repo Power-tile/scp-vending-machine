@@ -1,6 +1,6 @@
 package cn.moonshotacademy.scp.vendingmachine.service;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -19,65 +19,39 @@ public class ProductService {
     @Autowired
     ProductDAO productDAO;
 
-    public ProductVO getProducts(Integer test) {
-        return this.getProducts(test, true);
+    private String getFormattedDate() {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.format(date);
     }
 
-    public ProductVO getProducts(Integer test, boolean available) {
+    public List<ProductDTO> getExpiredProducts(Integer test) {
+        return this.productDAO.findExpiredByTest(test, this.getFormattedDate());
+    }
+
+    public ProductVO getAvailableProducts(Integer test) {
         ProductVO productVO = new ProductVO();
-        List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
-        if(available){
-            productDTOList = this.productDAO.findAvailableByTestAndRandom(test, 0, new Date());
-        } else {
-            productDTOList = this.productDAO.findExpiryByTestAndRandom(test, 0, new Date());
-        }
-        // int cnt = 0;
-        // while(cnt<productDTOList.size()){
-        //     if(this.available(productDTOList.get(cnt))==available){
-        //         cnt++;
-        //     } else {
-        //         productDTOList.remove(cnt);
-        //     }
-        // }
+        List<ProductDTO> productDTOList = this.productDAO.findAvailableByTestAndRandom(test, 0, this.getFormattedDate());
 
         productVO.setProducts(productDTOList);
-        productVO.setRandomBox(this.getRandomVO(test,available));
+        productVO.setRandomBox(this.getRandomVO(test));
         return productVO;
     }
 
-    private RandomVO getRandomVO(Integer test, boolean available) {
+    private RandomVO getRandomVO(Integer test) {
         RandomVO ret = new RandomVO();
-        List<ProductDTO> randomDTOList = new ArrayList<ProductDTO>();
-        if(available){
-            randomDTOList = this.productDAO.findAvailableByTestAndRandom(test, 1, new Date());
-        } else {
-            randomDTOList = this.productDAO.findExpiryByTestAndRandom(test, 1, new Date());
-        }
-        ArrayList<Integer> ids = new ArrayList<Integer>();
+        List<ProductDTO> randomDTOList = this.productDAO.findAvailableByTestAndRandom(test, 1, this.getFormattedDate());
+            
         Double totalPrice = 0.0;
+        Integer[] retIds = new Integer[randomDTOList.size()];
         for (int i = 0; i < randomDTOList.size(); i++) {
-            ids.add(randomDTOList.get(i).getId());
+            retIds[i] = randomDTOList.get(i).getId();
+            totalPrice += randomDTOList.get(i).getPrice();
         }
 
-        Integer[] retIds = new Integer[ids.size()];
-        for(int i=0;i<ids.size();i++){
-            retIds[i]=ids.get(i);
-        }
         ret.setIds(retIds);
-        ret.setPrice(totalPrice / randomDTOList.size());
+        ret.setPrice(Double.valueOf(Math.ceil(totalPrice / randomDTOList.size())));
         ret.setTest(test);
         return ret;
-    }
-
-    private boolean available(ProductDTO productDTO) {
-        Date productDate = productDTO.getExpiryDate();
-        Date currentDate = new Date();
-        // System.out.println(productDTO.getName());
-        // System.out.println(productDate);
-        if (productDate.compareTo(currentDate) == 1) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }
