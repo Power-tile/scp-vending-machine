@@ -25,15 +25,20 @@ public class ProductService {
 
     public ProductVO getProducts(Integer test, boolean available) {
         ProductVO productVO = new ProductVO();
-        List<ProductDTO> productDTOList = this.productDAO.findByTestAndRandom(test, 0);
-        int cnt = 0;
-        while(cnt<productDTOList.size()){
-            if(this.available(productDTOList.get(cnt))==available){
-                cnt++;
-            } else {
-                productDTOList.remove(cnt);
-            }
+        List<ProductDTO> productDTOList = new ArrayList<ProductDTO>();
+        if(available){
+            productDTOList = this.productDAO.findAvailableByTestAndRandom(test, 0, new Date());
+        } else {
+            productDTOList = this.productDAO.findExpiryByTestAndRandom(test, 0, new Date());
         }
+        // int cnt = 0;
+        // while(cnt<productDTOList.size()){
+        //     if(this.available(productDTOList.get(cnt))==available){
+        //         cnt++;
+        //     } else {
+        //         productDTOList.remove(cnt);
+        //     }
+        // }
 
         productVO.setProducts(productDTOList);
         productVO.setRandomBox(this.getRandomVO(test,available));
@@ -42,18 +47,18 @@ public class ProductService {
 
     private RandomVO getRandomVO(Integer test, boolean available) {
         RandomVO ret = new RandomVO();
-        List<ProductDTO> randomDTOList = this.productDAO.findByTestAndRandom(test, 1);
+        List<ProductDTO> randomDTOList = new ArrayList<ProductDTO>();
+        if(available){
+            randomDTOList = this.productDAO.findAvailableByTestAndRandom(test, 1, new Date());
+        } else {
+            randomDTOList = this.productDAO.findExpiryByTestAndRandom(test, 1, new Date());
+        }
         ArrayList<Integer> ids = new ArrayList<Integer>();
         Double totalPrice = 0.0;
         for (int i = 0; i < randomDTOList.size(); i++) {
-            ProductDTO randomDTO = randomDTOList.get(i);
-            if (this.available(randomDTO)==available) {
-                ids.add(randomDTOList.get(i).getId());
-                totalPrice += randomDTOList.get(i).getPrice();
-            }
+            ids.add(randomDTOList.get(i).getId());
         }
 
-        // ret.setIds((Integer[]) ids.toArray());
         Integer[] retIds = new Integer[ids.size()];
         for(int i=0;i<ids.size();i++){
             retIds[i]=ids.get(i);

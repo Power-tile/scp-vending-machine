@@ -1,8 +1,7 @@
 package cn.moonshotacademy.scp.vendingmachine.dao;
 
 import java.util.List;
-
-// import java.util.List;
+import java.util.Date;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,4 +19,10 @@ public interface ProductDAO extends JpaRepository<ProductDTO, Integer> {
     
     @Query(value = "SELECT * from products WHERE test=:test AND random=:random", nativeQuery = true)
     List<ProductDTO> findByTestAndRandom(Integer test, Integer random);
+
+    @Query(value = "SELECT * from products WHERE test=:test AND random=:random AND expiry_date >= :date", nativeQuery = true)
+    List<ProductDTO> findAvailableByTestAndRandom(Integer test, Integer random, Date date);
+
+    @Query(value = "SELECT * from products WHERE test=:test AND random=:random AND expiry_date < :date", nativeQuery = true)
+    List<ProductDTO> findExpiryByTestAndRandom(Integer test, Integer random, Date date);
 }
