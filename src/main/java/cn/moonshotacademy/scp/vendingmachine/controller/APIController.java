@@ -12,6 +12,7 @@ import cn.moonshotacademy.scp.vendingmachine.dao.LogDAO;
 import cn.moonshotacademy.scp.vendingmachine.dao.ProductDAO;
 import cn.moonshotacademy.scp.vendingmachine.dao.UserDAO;
 import cn.moonshotacademy.scp.vendingmachine.model.LogDTO;
+import cn.moonshotacademy.scp.vendingmachine.model.ProductDTO;
 import cn.moonshotacademy.scp.vendingmachine.service.ProductService;
 import cn.moonshotacademy.scp.vendingmachine.vo.ProductVO;
 
@@ -41,12 +42,22 @@ public class APIController {
     }
 
     @RequestMapping("/api/product/available")
-    public @ResponseBody ProductVO getProduct() {
-        return productService.getProducts(0);
+    public @ResponseBody ProductVO getAvailableProduct() {
+        return productService.getAvailableProducts(0);
     }
 
     @RequestMapping("/api/product/test/available")
-    public @ResponseBody ProductVO getTestProduct() {
-        return productService.getProducts(1);
+    public @ResponseBody ProductVO getAvailableTestProduct() {
+        return productService.getAvailableProducts(1);
+    }
+
+    @RequestMapping("/api/product/expired")
+    public @ResponseBody List<ProductDTO> getExpiredProduct() {
+        return productService.getExpiredProducts(0);
+    }
+
+    @RequestMapping("/api/product/test/expired")
+    public @ResponseBody List<ProductDTO> getExpiredTestProduct() {
+        return productService.getExpiredProducts(1);
     }
 }
