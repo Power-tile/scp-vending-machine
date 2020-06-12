@@ -16,7 +16,7 @@ public class SessionListener implements HttpSessionListener {
         System.out.println("--- Session Created ---- ");
 
         HttpSession session = event.getSession();
-        session.setMaxInactiveInterval(10);
+        session.setMaxInactiveInterval(600);
         System.out.println("createdSessionId: " + session.getId());
     }
 
