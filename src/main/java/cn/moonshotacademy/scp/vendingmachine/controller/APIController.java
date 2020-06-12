@@ -2,6 +2,8 @@ package cn.moonshotacademy.scp.vendingmachine.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,11 +32,6 @@ public class APIController {
     @Autowired
     ProductService productService;
 
-    @RequestMapping("/api/test")
-    public @ResponseBody List<LogDTO> apiTest() {
-        return logDAO.findAll();
-    }
-
     @RequestMapping("/api/img/{name}")
     public String apiGetImage(@PathVariable("name") String imgName) {
         System.out.println(imgName);
@@ -42,22 +39,22 @@ public class APIController {
     }
 
     @RequestMapping("/api/product/available")
-    public @ResponseBody ProductVO getAvailableProduct() {
+    public @ResponseBody ProductVO getAvailableProduct(HttpSession session) {
         return productService.getAvailableProducts(0);
     }
 
     @RequestMapping("/api/product/test/available")
-    public @ResponseBody ProductVO getAvailableTestProduct() {
+    public @ResponseBody ProductVO getAvailableTestProduct(HttpSession session) {
         return productService.getAvailableProducts(1);
     }
 
     @RequestMapping("/api/product/expired")
-    public @ResponseBody List<ProductDTO> getExpiredProduct() {
+    public @ResponseBody List<ProductDTO> getExpiredProduct(HttpSession session) {
         return productService.getExpiredProducts(0);
     }
 
     @RequestMapping("/api/product/test/expired")
-    public @ResponseBody List<ProductDTO> getExpiredTestProduct() {
+    public @ResponseBody List<ProductDTO> getExpiredTestProduct(HttpSession session) {
         return productService.getExpiredProducts(1);
     }
 }
