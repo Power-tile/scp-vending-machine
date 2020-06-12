@@ -43,4 +43,7 @@ public class ProductDTO {
 
     @Column(name = "image_url")
     private String imageUrl;
+
+    @Column(name = "session_id")
+    private String sessionId;
 }

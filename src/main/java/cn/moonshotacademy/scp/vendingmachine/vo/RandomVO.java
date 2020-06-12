@@ -15,13 +15,13 @@ public class RandomVO {
 
     Double price;
 
-    // @Value("/api/img/94d4aef90820265861855512ea9f4164.png")
+    // @Value("/api/img/96d4aef90820265861855512ea9f4164.png")
     String imageUrl;
 
     Integer test;
 
     public RandomVO() {
         this.name = "Random Box";
-        this.imageUrl = "/api/img/94d4aef90820265861855512ea9f4164.png";
+        this.imageUrl = "/api/img/96d4aef90820265861855512ea9f4164.png";
     }
 }
